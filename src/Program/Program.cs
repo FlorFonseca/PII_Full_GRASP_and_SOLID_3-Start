@@ -26,9 +26,27 @@ namespace Full_GRASP_And_SOLID
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
 
-            AllInOnePrinter printer = new AllInOnePrinter();
-            printer.PrintRecipe(recipe, Destination.Console);
-            printer.PrintRecipe(recipe, Destination.File);
+            IPrinter printer;
+            printer = new ConsolePrinter();
+            printer.PrintRecipe(recipe);
+            printer = new FilePrinter();
+            printer.PrintRecipe(recipe);
+            /*
+            Para asignar esta responsabilidad utilicé el patrón GRASP de Polimorfismo.
+            Primeramente creé la instancia IPrinter la cual contiene el método
+            PrintRecipe que recibe como parámetro una receta del tipo Recipe.
+
+            Luego creé dos clases que implementan la interfaz IPrinter: ConsolePrinter y FilePrinter.
+
+            Como su nombre lo indica, ConsolePrinter se encargará de imprimir la receta en la consola
+            y FilePrinter de imprimir en un archivo.
+
+            Como ambas clases implementan la interfaz IPrinter, quiere decir que ambas clases tienen el 
+            método PrintRecipe (Recipe recipe) en ellas, pero se encarga de imprimir en diferentes lugares
+            según se encuentre en ConsolePrinter o FilePrinter,
+            esto quiere decir que el método PrintRecipe es polimorfico.
+            */
+
         }
 
         private static void PopulateCatalogs()
